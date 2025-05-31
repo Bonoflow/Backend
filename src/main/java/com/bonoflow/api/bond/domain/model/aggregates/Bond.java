@@ -2,6 +2,8 @@ package com.bonoflow.api.bond.domain.model.aggregates;
 
 import com.bonoflow.api.bond.domain.model.commands.CreateBondCommand;
 import com.bonoflow.api.bond.domain.model.commands.UpdateBondCommand;
+import com.bonoflow.api.bond.domain.model.entities.CashFlow;
+import com.bonoflow.api.bond.domain.model.entities.FinancialMetric;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondRateType;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondCompounding;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondPaymentFrequency;
@@ -11,6 +13,9 @@ import com.bonoflow.api.shared.domain.model.aggregates.AuditableAbstractAggregat
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -68,6 +73,11 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
     @Column(name = "grace_period", nullable = false)
     private Integer gracePeriod;
 
+    @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CashFlow> cashFlows = new ArrayList<>();
+
+    @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FinancialMetric> financialMetrics = new ArrayList<>();
 
     public Bond() {}
 
