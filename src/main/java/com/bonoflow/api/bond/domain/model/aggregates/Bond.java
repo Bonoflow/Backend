@@ -106,6 +106,8 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.currency = command.currency();
         this.graceType = BondGraceType.valueOf(command.graceType().toUpperCase());
         this.gracePeriod = command.gracePeriod();
+        this.cashFlows.clear();
+        this.financialMetrics.clear();
         return this;
     }
 

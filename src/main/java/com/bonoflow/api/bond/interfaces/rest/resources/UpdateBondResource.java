@@ -1,7 +1,6 @@
 package com.bonoflow.api.bond.interfaces.rest.resources;
 
 public record UpdateBondResource(
-        Long clientId,
         String name,
         Double faceValue,
         Double interestRate,
