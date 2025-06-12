@@ -4,6 +4,7 @@ import com.bonoflow.api.bond.domain.model.entities.FinancialMetric;
 import com.bonoflow.api.bond.domain.model.commands.DeleteFinancialMetricCommand;
 import com.bonoflow.api.bond.domain.model.queries.GetAllFinancialMetricsByBondIdQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetAllFinancialMetricsQuery;
+import com.bonoflow.api.bond.domain.model.queries.GetFinancialMetricByBondIdQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetFinancialMetricByIdQuery;
 import com.bonoflow.api.bond.domain.services.FinancialMetricCommandService;
 import com.bonoflow.api.bond.domain.services.FinancialMetricQueryService;
@@ -62,16 +63,15 @@ public class FinancialMetricsController {
         return ResponseEntity.ok(financialMetricResource);
     }
 
-    @GetMapping("/bond/{bondId}")
-    public ResponseEntity<List<FinancialMetricResource>> getFinancialMetricsByBondId(@PathVariable Long bondId) {
-        var query = new GetAllFinancialMetricsByBondIdQuery(bondId);
-        var financialMetrics = financialMetricQueryService.handle(query);
-
-        var financialMetricResources = financialMetrics.stream()
-                .map(FinancialMetricResourceFromEntity::toResource)
-                .toList();
-
-        return ResponseEntity.ok(financialMetricResources);
+    @GetMapping("bond/{bondId}")
+    public ResponseEntity<FinancialMetricResource> getFinancialMetricByBondId(@PathVariable Long bondId) {
+        var query = new GetFinancialMetricByBondIdQuery(bondId);
+        var financialMetric = financialMetricQueryService.handle(query);
+        if (financialMetric.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        var financialMetricResource = FinancialMetricResourceFromEntity.toResource(financialMetric.get());
+        return ResponseEntity.ok(financialMetricResource);
     }
 
     @PostMapping
