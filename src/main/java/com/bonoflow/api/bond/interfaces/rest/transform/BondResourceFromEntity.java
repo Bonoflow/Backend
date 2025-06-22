@@ -18,7 +18,9 @@ public class BondResourceFromEntity {
                 bond.getPaymentFrequency().name(),
                 bond.getCurrency(),
                 bond.getGraceType().name(),
-                bond.getGracePeriod()
+                bond.getGracePeriod(),
+                bond.getIssueDate(),
+                bond.getMaturityDate()
         );
     }
 }

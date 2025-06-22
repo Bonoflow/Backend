@@ -1,6 +1,7 @@
 package com.bonoflow.api.bond.interfaces.rest.resources;
 
 
+import java.time.LocalDate;
 
 public record BondResource(
         Long id,
@@ -14,6 +15,8 @@ public record BondResource(
         String paymentFrequency,
         String currency,
         String graceType,
-        Integer gracePeriod
+        Integer gracePeriod,
+        LocalDate issueDate,
+        LocalDate maturityDate
 ) {
 }

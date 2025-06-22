@@ -10,5 +10,6 @@ public record UpdateCashFlowCommand(
         Double interest,
         Double amortization,
         Double installment,
-        Double finalBalance
+        Double finalBalance,
+        Double fixedInstallment
 ) {}

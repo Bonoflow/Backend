@@ -17,7 +17,9 @@ public class CreateBondCommandFromResourceAssembler {
                 resource.paymentFrequency(),
                 resource.currency(),
                 resource.graceType(),
-                resource.gracePeriod()
+                resource.gracePeriod(),
+                resource.issueDate(),
+                resource.maturityDate()
         );
     }
 }

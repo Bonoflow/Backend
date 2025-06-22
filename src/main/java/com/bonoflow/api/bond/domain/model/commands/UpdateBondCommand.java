@@ -1,5 +1,7 @@
 package com.bonoflow.api.bond.domain.model.commands;
 
+import java.time.LocalDate;
+
 public record UpdateBondCommand(
         Long id,
         String name,
@@ -11,5 +13,7 @@ public record UpdateBondCommand(
         String paymentFrequency,
         String currency,
         String graceType,
-        Integer gracePeriod
+        Integer gracePeriod,
+        LocalDate issueDate,
+        LocalDate maturityDate
 ) {}
