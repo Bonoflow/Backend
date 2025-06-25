@@ -16,5 +16,9 @@ public class ExternalProfileRoleService {
         return profilesContextFacade.createClient(userId, user);
     }
 
+    public Long createInvestor(Long userId, User user) {
+        return profilesContextFacade.createInvestor(userId, user);
+    }
+
 
 }

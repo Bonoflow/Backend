@@ -69,6 +69,8 @@ public class UserCommandServiceImpl implements UserCommandService {
         roles.forEach(role -> {
             if (role.getStringName().equals("ROLE_CLIENT")) {
                 externalProfileRoleService.createClient(user.getId(), user);
+            } else if (role.getStringName().equals("ROLE_INVESTOR")) {
+                externalProfileRoleService.createInvestor(user.getId(), user);
             }
         });
         return userRepository.findByUsername(command.username());
