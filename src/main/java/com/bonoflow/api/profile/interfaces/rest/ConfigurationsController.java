@@ -9,15 +9,20 @@ import com.bonoflow.api.profile.interfaces.rest.resources.ConfigurationResource;
 import com.bonoflow.api.profile.interfaces.rest.resources.UpdateConfigurationResource;
 import com.bonoflow.api.profile.interfaces.rest.transform.ConfigurationResourceFromEntityAssembler;
 import com.bonoflow.api.profile.interfaces.rest.transform.UpdateConfigurationCommandFromResourceAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "api/v1/configurations", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value="api/v1/configurations", produces = APPLICATION_JSON_VALUE)
+@Tag(name = "Configuration", description = "Configuration Client Management Endpoints")
 public class ConfigurationsController {
 
     private final ConfigurationCommandService configurationCommandService;

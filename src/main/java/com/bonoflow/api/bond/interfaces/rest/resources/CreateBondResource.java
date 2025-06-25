@@ -9,12 +9,15 @@ public record CreateBondResource(
         Double interestRate,
         String rateType,
         String compounding,
-        Integer term,
         String paymentFrequency,
         String currency,
         String graceType,
         Integer gracePeriod,
         LocalDate issueDate,
-        LocalDate maturityDate
+        LocalDate maturityDate,
+        Double issuanceExpenses,
+        Double placementExpenses,
+        Double structuringExpenses,
+        Double cavaliExpenses
 ) {
 }

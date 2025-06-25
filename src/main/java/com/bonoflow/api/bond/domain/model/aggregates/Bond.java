@@ -58,11 +58,6 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
     @Column
     private BondCompounding compounding;
 
-    // Plazo del bono (en periodos)
-    @NotNull
-    @Column(nullable = false)
-    private Integer term;
-
     // Frecuencia de pago (mensual, anual, etc.)
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -132,13 +127,16 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.interestRate = command.interestRate();
         this.rateType = BondRateType.valueOf(command.rateType().toUpperCase());
         this.compounding = BondCompounding.valueOf(command.compounding().toUpperCase());
-        this.term = command.term();
         this.paymentFrequency = BondPaymentFrequency.valueOf(command.paymentFrequency().toUpperCase());
         this.currency = command.currency();
         this.graceType = BondGraceType.valueOf(command.graceType().toUpperCase());
         this.gracePeriod = command.gracePeriod();
         this.issueDate = command.issueDate();
         this.maturityDate = command.maturityDate();
+        this.issuanceExpenses = command.issuanceExpenses();
+        this.placementExpenses = command.placementExpenses();
+        this.structuringExpenses = command.structuringExpenses();
+        this.cavaliExpenses = command.cavaliExpenses();
     }
 
     public Bond update(UpdateBondCommand command) {
@@ -147,7 +145,6 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.interestRate = command.interestRate();
         this.rateType = BondRateType.valueOf(command.rateType().toUpperCase());
         this.compounding = BondCompounding.valueOf(command.compounding().toUpperCase());
-        this.term = command.term();
         this.paymentFrequency = BondPaymentFrequency.valueOf(command.paymentFrequency().toUpperCase());
         this.currency = command.currency();
         this.graceType = BondGraceType.valueOf(command.graceType().toUpperCase());
@@ -156,6 +153,10 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.maturityDate = command.maturityDate();
         this.cashFlows.clear();
         this.financialMetrics.clear();
+        this.issuanceExpenses = command.issuanceExpenses();
+        this.placementExpenses = command.placementExpenses();
+        this.structuringExpenses = command.structuringExpenses();
+        this.cavaliExpenses = command.cavaliExpenses();
         return this;
     }
 
