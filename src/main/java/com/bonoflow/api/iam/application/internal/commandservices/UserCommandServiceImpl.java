@@ -10,18 +10,13 @@ import com.bonoflow.api.iam.domain.model.commands.SignUpCommand;
 import com.bonoflow.api.iam.domain.services.UserCommandService;
 import com.bonoflow.api.iam.infrastructure.persistence.jpa.repositories.RoleRepository;
 import com.bonoflow.api.iam.infrastructure.persistence.jpa.repositories.UserRepository;
+import com.bonoflow.api.profile.domain.model.events.CreateConfigurationByUserCreated;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-/**
- * User command service implementation
- * <p>
- *     This class implements the {@link UserCommandService} interface and provides the implementation for the
- *     {@link SignInCommand} and {@link SignUpCommand} commands.
- * </p>
- */
 @Service
 public class UserCommandServiceImpl implements UserCommandService {
 
@@ -30,24 +25,22 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final TokenService tokenService;
     private final RoleRepository roleRepository;
     private final ExternalProfileRoleService externalProfileRoleService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, RoleRepository roleRepository, ExternalProfileRoleService externalProfileRoleService) {
+    public UserCommandServiceImpl(UserRepository userRepository,
+                                  HashingService hashingService,
+                                  TokenService tokenService,
+                                  RoleRepository roleRepository,
+                                  ExternalProfileRoleService externalProfileRoleService,
+                                  ApplicationEventPublisher eventPublisher) {
         this.userRepository = userRepository;
         this.hashingService = hashingService;
         this.tokenService = tokenService;
         this.roleRepository = roleRepository;
         this.externalProfileRoleService = externalProfileRoleService;
+        this.eventPublisher = eventPublisher;
     }
 
-    /**
-     * Handle the sign-in command
-     * <p>
-     *     This method handles the {@link SignInCommand} command and returns the user and the token.
-     * </p>
-     * @param command the sign-in command containing the username and password
-     * @return and optional containing the user matching the username and the generated token
-     * @throws RuntimeException if the user is not found or the password is invalid
-     */
     @Override
     public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
         var user = userRepository.findByUsername(command.username());
@@ -59,27 +52,26 @@ public class UserCommandServiceImpl implements UserCommandService {
         return Optional.of(ImmutablePair.of(user.get(), token));
     }
 
-    /**
-     * Handle the sign-up command
-     * <p>
-     *     This method handles the {@link SignUpCommand} command and returns the user.
-     * </p>
-     * @param command the sign-up command containing the username and password
-     * @return the created user
-     */
     @Override
     public Optional<User> handle(SignUpCommand command) {
         if (userRepository.existsByUsername(command.username()))
             throw new RuntimeException("Username already exists");
-        var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName()).orElseThrow(() -> new RoleNotFoundException(role.getStringName()))).toList();
+        var roles = command.roles().stream()
+                .map(role -> roleRepository.findByName(role.getName())
+                        .orElseThrow(() -> new RoleNotFoundException(role.getStringName())))
+                .toList();
         var user = new User(command.username(), hashingService.encode(command.password()), roles);
         userRepository.save(user);
-        //Create farmer or advisor depending on the role
+
+        // Publicar el evento para que el handler lo escuche
+        eventPublisher.publishEvent(new CreateConfigurationByUserCreated(this, user.getId(), user));
+
         roles.forEach(role -> {
             if (role.getStringName().equals("ROLE_CLIENT")) {
                 externalProfileRoleService.createClient(user.getId(), user);
+            } else if (role.getStringName().equals("ROLE_INVESTOR")) {
+                externalProfileRoleService.createInvestor(user.getId(), user);
             }
-
         });
         return userRepository.findByUsername(command.username());
     }

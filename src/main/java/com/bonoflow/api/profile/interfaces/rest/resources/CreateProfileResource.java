@@ -8,6 +8,8 @@ public record CreateProfileResource(
         String lastName,
         LocalDate birthDate,
         String description,
-        String photo
+        String photo,
+        String company,
+        String ruc
 ) {
 }

@@ -13,11 +13,16 @@ public class UpdateBondCommandFromResourceAssembler {
                 resource.interestRate(),
                 resource.rateType(),
                 resource.compounding(),
-                resource.term(),
                 resource.paymentFrequency(),
                 resource.currency(),
                 resource.graceType(),
-                resource.gracePeriod()
+                resource.gracePeriod(),
+                resource.issueDate(),
+                resource.maturityDate(),
+                resource.issuanceExpenses(),
+                resource.placementExpenses(),
+                resource.structuringExpenses(),
+                resource.cavaliExpenses()
         );
     }
 }

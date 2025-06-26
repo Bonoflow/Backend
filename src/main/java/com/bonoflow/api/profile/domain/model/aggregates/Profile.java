@@ -7,10 +7,7 @@ import com.bonoflow.api.shared.domain.model.aggregates.AuditableAbstractAggregat
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +29,12 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
     private String description;
     private String photo;
 
+    @Size(max = 100, message = "El nombre de la empresa no puede superar los 100 caracteres")
+    private String company;
+
+    @Pattern(regexp = "\\d{11}", message = "El RUC debe tener 11 dígitos")
+    private String ruc;
+
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -47,6 +50,8 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
         this.description = command.description();
         this.photo = command.photo();
         this.user = user;
+        this.company = command.company();
+        this.ruc = command.ruc();
     }
 
     public Profile update(UpdateProfileCommand command){
@@ -55,6 +60,8 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
         this.birthDate = command.birthDate();
         this.description = command.description();
         this.photo = command.photo();
+        this.company = command.company();
+        this.ruc = command.ruc();
         return this;
     }
 

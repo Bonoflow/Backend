@@ -11,7 +11,9 @@ public class CreateProfileCommandFromResourceAssembler {
                 resource.lastName(),
                 resource.birthDate(),
                 resource.description(),
-                resource.photo()
+                resource.photo(),
+                resource.company(),
+                resource.ruc()
         );
     }
 }

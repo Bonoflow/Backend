@@ -12,7 +12,9 @@ public class ProfileResourceFromEntityAssembler {
                 profile.getLastName(),
                 profile.getBirthDate(),
                 profile.getDescription(),
-                profile.getPhoto()
+                profile.getPhoto(),
+                profile.getCompany(),
+                profile.getRuc()
         );
     }
 }
