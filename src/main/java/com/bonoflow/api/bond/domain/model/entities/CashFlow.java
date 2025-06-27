@@ -54,6 +54,10 @@ public class CashFlow {
     @Column(name = "final_balance", nullable = false)
     private Double finalBalance;
 
+    @NotNull
+    @Column(name = "expenses", nullable = false)
+    private Double expenses;
+
     public CashFlow() {}
 
     public CashFlow(CreateCashFlowCommand command, Bond bond) {
@@ -66,6 +70,7 @@ public class CashFlow {
         this.installment = command.installment();
         this.finalBalance = command.finalBalance();
         this.fixedInstallment = command.fixedInstallment();
+        this.expenses = command.expenses();
     }
 
     public CashFlow update(UpdateCashFlowCommand command) {
@@ -77,6 +82,7 @@ public class CashFlow {
         this.installment = command.installment();
         this.finalBalance = command.finalBalance();
         this.fixedInstallment = command.fixedInstallment();
+        this.expenses = command.expenses();
         return this;
     }
 

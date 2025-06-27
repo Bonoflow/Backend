@@ -10,6 +10,7 @@ public record UpdateCashFlowResource(
         Double amortization,
         Double installment,
         Double finalBalance,
-        Double fixedInstallment
+        Double fixedInstallment,
+        Double expenses
 ) {
 }

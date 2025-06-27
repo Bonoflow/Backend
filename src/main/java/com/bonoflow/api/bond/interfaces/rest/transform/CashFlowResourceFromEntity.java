@@ -15,7 +15,8 @@ public class CashFlowResourceFromEntity {
                 cashFlow.getAmortization(),
                 cashFlow.getInstallment(),
                 cashFlow.getFinalBalance(),
-                cashFlow.getFixedInstallment()
+                cashFlow.getFixedInstallment(),
+                cashFlow.getExpenses()
         );
     }
 }
