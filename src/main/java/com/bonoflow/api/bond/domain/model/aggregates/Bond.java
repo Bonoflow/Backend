@@ -112,6 +112,10 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
 
     // Tablas que se borran cuando se borra el bono
 
+    @NotNull
+    @Column(name = "market_rate", nullable = false)
+    private Double marketRate;
+
     @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CashFlow> cashFlows = new ArrayList<>();
 
@@ -137,6 +141,7 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.placementExpenses = command.placementExpenses();
         this.structuringExpenses = command.structuringExpenses();
         this.cavaliExpenses = command.cavaliExpenses();
+        this.marketRate = command.marketRate();
     }
 
     public Bond update(UpdateBondCommand command) {
@@ -157,6 +162,7 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.placementExpenses = command.placementExpenses();
         this.structuringExpenses = command.structuringExpenses();
         this.cavaliExpenses = command.cavaliExpenses();
+        this.marketRate = command.marketRate();
         return this;
     }
 

@@ -22,7 +22,8 @@ public class CreateBondCommandFromResourceAssembler {
                 resource.issuanceExpenses(),
                 resource.placementExpenses(),
                 resource.structuringExpenses(),
-                resource.cavaliExpenses()
+                resource.cavaliExpenses(),
+                resource.marketRate()
         );
     }
 }

@@ -23,7 +23,8 @@ public class BondResourceFromEntity {
                 bond.getIssuanceExpenses(),
                 bond.getPlacementExpenses(),
                 bond.getStructuringExpenses(),
-                bond.getCavaliExpenses()
+                bond.getCavaliExpenses(),
+                bond.getMarketRate()
         );
     }
 }
