@@ -4,6 +4,7 @@ import com.bonoflow.api.bond.domain.model.commands.CreateBondCommand;
 import com.bonoflow.api.bond.domain.model.commands.UpdateBondCommand;
 import com.bonoflow.api.bond.domain.model.entities.CashFlow;
 import com.bonoflow.api.bond.domain.model.entities.FinancialMetric;
+import com.bonoflow.api.bond.domain.model.entities.Investment;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondRateType;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondCompounding;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondPaymentFrequency;
@@ -121,6 +122,11 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
 
     @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FinancialMetric> financialMetrics = new ArrayList<>();
+
+    @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Investment> investments = new ArrayList<>();
+
+
 
     public Bond() {}
 

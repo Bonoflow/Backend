@@ -47,6 +47,10 @@ public class CashFlow {
     private Double fixedInstallment;
 
     @NotNull
+    @Column(name = "investor_flow")
+    private Double investorFlow;
+
+    @NotNull
     @Column(nullable = false)
     private Double installment;
 
@@ -71,6 +75,7 @@ public class CashFlow {
         this.finalBalance = command.finalBalance();
         this.fixedInstallment = command.fixedInstallment();
         this.expenses = command.expenses();
+        this.investorFlow = command.investorFlow();
     }
 
     public CashFlow update(UpdateCashFlowCommand command) {
@@ -83,6 +88,7 @@ public class CashFlow {
         this.finalBalance = command.finalBalance();
         this.fixedInstallment = command.fixedInstallment();
         this.expenses = command.expenses();
+        this.investorFlow = command.investorFlow();
         return this;
     }
 

@@ -12,5 +12,6 @@ public record CreateCashFlowCommand(
         Double installment,
         Double finalBalance,
         Double fixedInstallment,
-        Double expenses
+        Double expenses,
+        Double investorFlow
 ) {}
