@@ -1,6 +1,7 @@
 package com.bonoflow.api.bond.application.internal.queryservices;
 
 import com.bonoflow.api.bond.domain.model.entities.CashFlow;
+import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsByClientIdQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetCashFlowByIdQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsByBondId;
@@ -32,5 +33,10 @@ public class CashFlowQueryServiceImpl implements CashFlowQueryService {
     @Override
     public List<CashFlow> handle(GetAllCashFlowsByBondId query) {
         return cashFlowRepository.findByBond_Id(query.bondId());
+    }
+
+    @Override
+    public List<CashFlow> handle(GetAllCashFlowsByClientIdQuery query) {
+        return cashFlowRepository.findAllByClientId(query.clientId());
     }
 }

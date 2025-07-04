@@ -15,7 +15,9 @@ public class CreateCashFlowCommandFromResourceAssembler {
                 resource.amortization(),
                 resource.installment(),
                 resource.finalBalance(),
-                resource.fixedInstallment()
+                resource.fixedInstallment(),
+                resource.expenses(),
+                resource.investorFlow()
         );
     }
 }

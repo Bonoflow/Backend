@@ -4,6 +4,7 @@ import com.bonoflow.api.bond.domain.model.commands.CreateBondCommand;
 import com.bonoflow.api.bond.domain.model.commands.UpdateBondCommand;
 import com.bonoflow.api.bond.domain.model.entities.CashFlow;
 import com.bonoflow.api.bond.domain.model.entities.FinancialMetric;
+import com.bonoflow.api.bond.domain.model.entities.Investment;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondRateType;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondCompounding;
 import com.bonoflow.api.bond.domain.model.valueobjects.BondPaymentFrequency;
@@ -112,11 +113,20 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
 
     // Tablas que se borran cuando se borra el bono
 
+    @NotNull
+    @Column(name = "market_rate", nullable = false)
+    private Double marketRate;
+
     @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CashFlow> cashFlows = new ArrayList<>();
 
     @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FinancialMetric> financialMetrics = new ArrayList<>();
+
+    @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Investment> investments = new ArrayList<>();
+
+
 
     public Bond() {}
 
@@ -137,6 +147,7 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.placementExpenses = command.placementExpenses();
         this.structuringExpenses = command.structuringExpenses();
         this.cavaliExpenses = command.cavaliExpenses();
+        this.marketRate = command.marketRate();
     }
 
     public Bond update(UpdateBondCommand command) {
@@ -157,6 +168,7 @@ public class Bond extends AuditableAbstractAggregateRoot<Bond> {
         this.placementExpenses = command.placementExpenses();
         this.structuringExpenses = command.structuringExpenses();
         this.cavaliExpenses = command.cavaliExpenses();
+        this.marketRate = command.marketRate();
         return this;
     }
 

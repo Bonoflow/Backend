@@ -5,6 +5,7 @@ import com.bonoflow.api.bond.domain.model.commands.DeleteCashFlowCommand;
 import com.bonoflow.api.bond.domain.model.commands.UpdateCashFlowCommand;
 import com.bonoflow.api.bond.domain.model.entities.CashFlow;
 import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsByBondId;
+import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsByClientIdQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetAllCashFlowsQuery;
 import com.bonoflow.api.bond.domain.model.queries.GetCashFlowByIdQuery;
 import com.bonoflow.api.bond.domain.services.CashFlowCommandService;
@@ -67,6 +68,18 @@ public class CashFlowsController {
     @GetMapping("/bond/{bondId}")
     public ResponseEntity<List<CashFlowResource>> getAllCashFlowsByBondId(@PathVariable Long bondId) {
         var query = new GetAllCashFlowsByBondId(bondId);
+        var cashFlows = cashFlowQueryService.handle(query);
+
+        var cashFlowResources = cashFlows.stream()
+                .map(CashFlowResourceFromEntity::toResource)
+                .toList();
+
+        return ResponseEntity.ok(cashFlowResources);
+    }
+
+    @GetMapping("/client/{clientId}")
+    public ResponseEntity<List<CashFlowResource>> getAllCashFlowsByClientId(@PathVariable Long clientId) {
+        var query = new GetAllCashFlowsByClientIdQuery(clientId);
         var cashFlows = cashFlowQueryService.handle(query);
 
         var cashFlowResources = cashFlows.stream()

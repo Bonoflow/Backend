@@ -18,5 +18,6 @@ public record UpdateBondCommand(
         Double issuanceExpenses,
         Double placementExpenses,
         Double structuringExpenses,
-        Double cavaliExpenses
+        Double cavaliExpenses,
+        Double marketRate
 ) {}
