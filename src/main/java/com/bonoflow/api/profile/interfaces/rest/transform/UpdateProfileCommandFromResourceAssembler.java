@@ -11,7 +11,9 @@ public class UpdateProfileCommandFromResourceAssembler {
                 resource.lastName(),
                 resource.birthDate(),
                 resource.description(),
-                resource.photo()
+                resource.photo(),
+                resource.company(),
+                resource.ruc()
         );
     }
 }

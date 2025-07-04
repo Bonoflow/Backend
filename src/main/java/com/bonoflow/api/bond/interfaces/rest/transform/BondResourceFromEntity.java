@@ -14,11 +14,17 @@ public class BondResourceFromEntity {
                 bond.getInterestRate(),
                 bond.getRateType().name(),
                 bond.getCompounding() != null ? bond.getCompounding().name() : null,
-                bond.getTerm(),
                 bond.getPaymentFrequency().name(),
                 bond.getCurrency(),
                 bond.getGraceType().name(),
-                bond.getGracePeriod()
+                bond.getGracePeriod(),
+                bond.getIssueDate(),
+                bond.getMaturityDate(),
+                bond.getIssuanceExpenses(),
+                bond.getPlacementExpenses(),
+                bond.getStructuringExpenses(),
+                bond.getCavaliExpenses(),
+                bond.getMarketRate()
         );
     }
 }

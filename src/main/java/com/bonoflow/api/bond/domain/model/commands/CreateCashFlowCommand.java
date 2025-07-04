@@ -10,5 +10,8 @@ public record CreateCashFlowCommand(
         Double interest,
         Double amortization,
         Double installment,
-        Double finalBalance
+        Double finalBalance,
+        Double fixedInstallment,
+        Double expenses,
+        Double investorFlow
 ) {}

@@ -22,7 +22,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value="api/v1/Clients", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value="api/v1/clients", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Clients", description = "Client Management Endpoints")
 public class ClientsController {
     private final ClientCommandService ClientCommandService;

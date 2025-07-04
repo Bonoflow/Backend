@@ -14,7 +14,10 @@ public class UpdateCashFlowCommandFromResourceAssembler {
                 resource.interest(),
                 resource.amortization(),
                 resource.installment(),
-                resource.finalBalance()
+                resource.finalBalance(),
+                resource.fixedInstallment(),
+                resource.expenses(),
+                resource.investorFlow()
         );
     }
 }

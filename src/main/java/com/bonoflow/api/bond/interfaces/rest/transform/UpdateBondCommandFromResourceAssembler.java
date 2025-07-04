@@ -8,17 +8,22 @@ public class UpdateBondCommandFromResourceAssembler {
     public static UpdateBondCommand toCommandFromResource(UpdateBondResource resource, Long id) {
         return new UpdateBondCommand(
                 id,
-                resource.clientId(),
                 resource.name(),
                 resource.faceValue(),
                 resource.interestRate(),
                 resource.rateType(),
                 resource.compounding(),
-                resource.term(),
                 resource.paymentFrequency(),
                 resource.currency(),
                 resource.graceType(),
-                resource.gracePeriod()
+                resource.gracePeriod(),
+                resource.issueDate(),
+                resource.maturityDate(),
+                resource.issuanceExpenses(),
+                resource.placementExpenses(),
+                resource.structuringExpenses(),
+                resource.cavaliExpenses(),
+                resource.marketRate()
         );
     }
 }
